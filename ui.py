@@ -5,8 +5,11 @@ import ssl
 import smtplib
 import pandas as pd
 import plotly.express as px
+from sklearn.metrics.pairwise import cosine_similarity
+
 
 # CONSTANTS
+st.set_page_config(layout="wide")
 MODEL_PATH = "product_f_pricing_model_top3_region_stable.pkl"
 SENDER = "fredericknathanirmawan@gmail.com"
 PASSWORD = "xzlc yjif lwqr fvky"
@@ -18,7 +21,8 @@ def generate_data(model, data):
   data_dict = {
        'Date': [],
        'Type': [],
-       'Vol': []
+       'Vol': [],
+       'Sales': []
   }
   df_u = data.drop_duplicates(subset=['bill_date'], keep='first')
   for _, row in df_u.iterrows():
@@ -27,7 +31,11 @@ def generate_data(model, data):
        data_dict['Type'].append('Current Sales Volume')
        data_dict['Type'].append('Predicted Sales Volume')
        data_dict['Vol'].append(row['sales_volume'])
-       data_dict['Vol'].append(model.predict([[row.year, row.month, row.kompetitor, row.asp, row.rbp, row.quarter, row.plc_weight, row.plc_adj_asp, row.regional_ship_to_Bali, row.regional_ship_to_Bengkulu, row.regional_ship_to_Lampung, row.plc_phase_Introduction, row.plc_phase_Growth, row.plc_phase_Maturity, row.plc_adj_sales_lag_1, row.plc_adj_sales_lag_3, row.plc_adj_sales_lag_6, row.plc_adj_sales_lag_12, row.plc_sales_ma_3, row.plc_sales_ma_6, row.price_ratio, row.discount_depth]])[0])
+       y_pred = model.predict([[row.year, row.month, row.kompetitor, row.asp, row.rbp, row.quarter, row.plc_weight, row.plc_adj_asp, row.regional_ship_to_Bali, row.regional_ship_to_Bengkulu, row.regional_ship_to_Lampung, row.plc_phase_Introduction, row.plc_phase_Growth, row.plc_phase_Maturity, row.plc_adj_sales_lag_1, row.plc_adj_sales_lag_3, row.plc_adj_sales_lag_6, row.plc_adj_sales_lag_12, row.plc_sales_ma_3, row.plc_sales_ma_6, row.price_ratio, row.discount_depth]])[0]
+       data_dict['Vol'].append(y_pred)
+       data_dict['Sales'].append(row['sales_volume'] * row['asp'])
+       data_dict['Sales'].append(y_pred * row['asp'])
+
   return data_dict
 
 df = pd.read_parquet('data_features.parquet')
@@ -47,38 +55,59 @@ elif region_ == "Bengkulu":
 elif region_ == "Lampung":
      data = generate_data(model, df[(df.regional_ship_to_Lampung == True) & (df.month == month_) & (df.year == year_)])
 
+col1, col2 = st.columns(2)
+# title=f"{int(year_)} Month {int(month_)} Daily Sales Volume for {region_}"
+with col1:
+    st.subheader("Volume")
+    fig = px.bar(data, x='Date', y='Vol', color='Type', barmode='group')
+    fig.update_layout(width=10000)
+    st.plotly_chart(fig)
 
-fig = px.bar(data, x='Date', y='Vol', color='Type', barmode='group',
-             title=f"{int(year_)} Month {int(month_)} Daily Sales Volume for {region_}")
-st.plotly_chart(fig)
+with col2:
+    st.subheader("Sales")
+    fig = px.bar(data, x='Date', y='Sales', color='Type', barmode='group')
+    st.plotly_chart(fig)
 
 
 st.markdown("## 🧠 Simulate Sales & Price Elasticity")
 
 RECEIVER = st.text_input("Input your E-Mail")
 
-year = st.number_input("Year", format="%g")
-month = st.number_input("Month", format="%g")
-kompetitor = st.number_input("Kompetitor", format="%g")
+year = int(st.number_input("Year", format="%g"))
+month = int(st.number_input("Month", format="%g"))
+kompetitor = int(st.number_input("Kompetitor", format="%g"))
 asp = st.number_input("ASP", format="%g")
 rbp = st.number_input("RBP", format="%g")
-quarter = st.number_input("Quarter", format="%g")
+quarter = int(st.number_input("Quarter", format="%g"))
 plc_weight = st.number_input("plc_weight", format="%g")
 plc_adj_asp = st.number_input("plc_adj_asp", format="%g")
-regional_ship_to_Bali = st.checkbox("Regional Ship to Bali")
-regional_ship_to_Bengkulu = st.checkbox("Regional Ship to Bengkulu")
-regional_ship_to_Lampung = st.checkbox("Regional Ship to Lampung")
+# regional_ship_to_Bali = st.checkbox("Regional Ship to Bali")
+# regional_ship_to_Bengkulu = st.checkbox("Regional Ship to Bengkulu")
+# regional_ship_to_Lampung = st.checkbox("Regional Ship to Lampung")
+regional = st.selectbox(
+    "Ship to Region:",
+    ["Bali", "Bengkulu", "Lampung"]
+)
+regional_ship_to_Bali = False
+regional_ship_to_Bengkulu = False
+regional_ship_to_Lampung = False
+if regional == "Bali":
+    regional_ship_to_Bali = True
+elif regional == "Bengkulu":
+    regional_ship_to_Bengkulu = True
+elif regional == "Lampung":
+    regional_ship_to_Lampung = True
 plc_phase_Introduction = st.checkbox("plc_phase_introduction")
 plc_phase_Growth = st.checkbox("plc_phase_growth")
 plc_phase_Maturity = st.checkbox("plc_maturity")
-plc_adj_sales_lag_1 = st.checkbox("plc_adj_sales_lag_1")
-plc_adj_sales_lag_3 = st.checkbox("plc_adj_sales_lag_3")
-plc_adj_sales_lag_6 = st.checkbox("plc_adj_sales_lag_6")
-plc_adj_sales_lag_12 = st.checkbox("plc_adj_sales_lag_12")
-plc_sales_ma_3 = st.checkbox("plc_sales_ma_3")
-plc_sales_ma_6 = st.checkbox("plc_sales_ma_6")
-price_ratio = st.number_input("Price Ratio")
-discount_depth = st.number_input("Discount Depth")
+plc_adj_sales_lag_1 = 10137.6 # st.checkbox("plc_adj_sales_lag_1")
+plc_adj_sales_lag_3 = 10137.6 # st.checkbox("plc_adj_sales_lag_3")
+plc_adj_sales_lag_6 = 11059.2 # st.checkbox("plc_adj_sales_lag_6")
+plc_adj_sales_lag_12 = 11059.2 # st.checkbox("plc_adj_sales_lag_12")
+plc_sales_ma_3 = 2757.333333 # st.checkbox("plc_sales_ma_3")
+plc_sales_ma_6 = 2400.888889 # st.checkbox("plc_sales_ma_6")
+price_ratio = st.number_input("Price Ratio", format="%g")
+discount_depth = st.number_input("Discount Depth", format="%g")
 
 feature_names = [
     "Year",
@@ -130,17 +159,6 @@ features = [
     discount_depth
 ]
 
-region = st.selectbox(
-    "Region",
-    (    "Bali", "Bangka Belitung", "Bengkulu", "DI Yogyakarta", "DKI Jakarta",
-    "Gorontalo", "Irian Jaya", "Jambi", "Jawa Barat", "Jawa Tengah", "Jawa Timur",
-    "Kalimantan Barat", "Kalimantan Selatan", "Kalimantan Tengah", "Kalimantan Timur",
-    "Kalimantan Utara", "Kepulauan Riau", "Lampung", "Maluku", "Maluku Utara",
-    "Nusa Tenggara Barat", "Nusa Tenggara Timur", "Papua", "Papua Barat", "Riau",
-    "Sulawesi Barat", "Sulawesi Selatan", "Sulawesi Tengah", "Sulawesi Tenggara",
-    "Sulawesi Utara", "Sumatera Barat", "Sumatera Selatan", "Sumatera Utara"),
-)
-
 st.markdown("""
     <style>
     div.stButton > button.red-outline-button {
@@ -169,49 +187,95 @@ st.markdown("""
     </script>
 """, unsafe_allow_html=True)
 
+st.write(    year,
+    month,
+    kompetitor,
+    asp,
+    rbp,
+    quarter,
+    plc_weight,
+    plc_adj_asp,
+    regional_ship_to_Bali,
+    regional_ship_to_Bengkulu,
+    regional_ship_to_Lampung,
+    plc_phase_Introduction,
+    plc_phase_Growth,
+    plc_phase_Maturity,
+    plc_adj_sales_lag_1,
+    plc_adj_sales_lag_3,
+    plc_adj_sales_lag_6,
+    plc_adj_sales_lag_12,
+    plc_sales_ma_3,
+    plc_sales_ma_6,
+    price_ratio,
+    discount_depth)
+
 if button:
+    sales_volume = df[(df.year==year)&(df.month==month)&(df.kompetitor==kompetitor)&(df.asp==asp)&(df.rbp==rbp)&(df.quarter==quarter)&(df.plc_weight==plc_weight)&(df.plc_adj_asp==plc_adj_asp)&(df.regional_ship_to_Bali==regional_ship_to_Bali)&(df.regional_ship_to_Bengkulu==regional_ship_to_Bengkulu)&(df.regional_ship_to_Lampung==regional_ship_to_Lampung)&(df.plc_phase_Introduction==plc_phase_Introduction)&(df.plc_phase_Growth==plc_phase_Growth)&(df.plc_phase_Maturity==plc_phase_Maturity)&(df.plc_adj_sales_lag_1==plc_adj_sales_lag_1)&(df.plc_adj_sales_lag_3==plc_adj_sales_lag_3)&(df.plc_adj_sales_lag_6==plc_adj_sales_lag_6)&(df.plc_adj_sales_lag_12==plc_adj_sales_lag_12)&(df.plc_sales_ma_3==plc_sales_ma_3)&(df.plc_sales_ma_6==plc_sales_ma_6)&(df.price_ratio==price_ratio)&(df.discount_depth==discount_depth)]['sales_volume'][0]
     y_pred = model.predict([features])
 
     em = EmailMessage()
     em['From'] = SENDER
     em['To'] = RECEIVER
-    em['Subject'] = 'Sales Prediction Report'
+    em['Subject'] = f'Revised Pricing Approval Request - {regional}'
 
     feature_html = ""
     for name, val in zip(feature_names, features):
         feature_html += f"<li>{name}: <b>{val}</b></li>"
 
-    html = f"""
-    <html>
-      <body>
-        <body style="font-family: Arial, sans-serif;">
-        <h2 style="color:#003366;">📊 Sales Prediction Summary</h2>
+    # html = f"""
+    # <html>
+    #   <body>
+    #     <body style="font-family: Arial, sans-serif;">
+    #     <h2 style="color:#003366;">📊 Sales Prediction Summary</h2>
         
-        <div style="background:#f0f0f0;padding:12px;border-radius:6px;margin-bottom:20px;">
-          <h4 style="margin-bottom:6px;">🔧 Model Inputs:</h4>
-          <ul style="margin-top:0;padding-left:20px;">
-            {feature_html}
-          </ul>
-        </div>
+    #     <div style="background:#f0f0f0;padding:12px;border-radius:6px;margin-bottom:20px;">
+    #       <h4 style="margin-bottom:6px;">🔧 Model Inputs:</h4>
+    #       <ul style="margin-top:0;padding-left:20px;">
+    #         {feature_html}
+    #       </ul>
+    #     </div>
 
-        <div style="background:#e6f0ff;padding:12px;border-radius:6px;margin-bottom:10px;">
-          🧮 ASP (Current Price):<b> {asp:.2f} </b>
-        </div>
-        <div style="background:#e6ffed;padding:12px;border-radius:6px;">
-          📈 Predicted Sales (New Price):<b> {y_pred[0]:.2f} units </b>
-        </div>
-      </body>
+    #     <div style="background:#e6f0ff;padding:12px;border-radius:6px;margin-bottom:10px;">
+    #       🧮 ASP (Current Price):<b> {asp:.2f} </b>
+    #     </div>
+    #     <div style="background:#e6ffed;padding:12px;border-radius:6px;">
+    #       📈 Predicted Sales (New Price):<b> {y_pred[0]:.2f} units </b>
+    #     </div>
+    #   </body>
+    # </html>
+    # """
+
+    html = f"""<html><body>
+    Updated Recommendation for Product F Pricing:
+    Region: Jawa Barat
+    Current Price: Rp{asp}
+    Current Sales Volume: {sales_volume}
+    Recommended New Price: Rp131,250 (+5.0%) [BELOM DIGANTI]
+  
+    Expected Outcomes:
+    - Revenue Increase: Rp+58,125,000 (+4.7%) [BELOM DIGANTI]
+    - Sales Volume Impact: {y_pred} units ({round((abs(y_pred - sales_volume) / sales_volume) * 100, 2)} % {"increase" if y_pred > sales_volume else "decrease"})
+    - Market Position: Maintains 3% price advantage vs competitors [BELOM DIGANTI]
+
+    Analysis Details:
+    - Price Elasticity: -1.12 (demand is relatively inelastic) [BELOM DIGANTI]
+    - Optimal Price Range: Rp130,000-Rp132,000 [BELOM DIGANTI]
+    - Best Implementation Timing: Next month (traditionally strong sales period) [BELOM DIGANTI]
+
+    Recommended Action: APPROVE 5% PRICE INCREASE
+    </body>
     </html>
     """
-
-    em.set_content("This is an HTML email with your prediction result.")  # fallback text
     em.add_alternative(html, subtype="html")
 
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
         smtp.login(SENDER, PASSWORD)
         smtp.send_message(em)
-    
+        
     st.warning('Summary has been sent to your mail', icon="🚨")
-    st.info(f"🧮 ASP (Current Price): **{asp}** units")
-    st.success(f"📈 Predicted Sales (New Price): **{y_pred[0]} units**")
+    st.info(f"💰 Current Price: **{asp}**")
+    st.info(f"🧮 Current Sales Volume: **{sales_volume if len(sales_volume) >= 1 else None}** units")
+    st.success(f"💸 Predicted Price: **{None}**")
+    st.success(f"📈 Predicted Sales: **{y_pred[0]} units**")
