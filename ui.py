@@ -184,28 +184,6 @@ st.markdown("""
     </script>
 """, unsafe_allow_html=True)
 
-st.write(    year,
-    month,
-    kompetitor,
-    asp,
-    rbp,
-    quarter,
-    plc_weight,
-    plc_adj_asp,
-    regional_ship_to_Bali,
-    regional_ship_to_Bengkulu,
-    regional_ship_to_Lampung,
-    plc_phase_Introduction,
-    plc_phase_Growth,
-    plc_phase_Maturity,
-    plc_adj_sales_lag_1,
-    plc_adj_sales_lag_3,
-    plc_adj_sales_lag_6,
-    plc_adj_sales_lag_12,
-    plc_sales_ma_3,
-    plc_sales_ma_6,
-    price_ratio,
-    discount_depth)
 
 if button:
     # sales_volume = df[(df.year==year)&(df.month==month)&(df.kompetitor==kompetitor)&(df.asp==asp)&(df.rbp==rbp)&(df.quarter==quarter)&(df.plc_weight==plc_weight)&(df.plc_adj_asp==plc_adj_asp)&(df.regional_ship_to_Bali==regional_ship_to_Bali)&(df.regional_ship_to_Bengkulu==regional_ship_to_Bengkulu)&(df.regional_ship_to_Lampung==regional_ship_to_Lampung)&(df.plc_phase_Introduction==plc_phase_Introduction)&(df.plc_phase_Growth==plc_phase_Growth)&(df.plc_phase_Maturity==plc_phase_Maturity)&(df.plc_adj_sales_lag_1==plc_adj_sales_lag_1)&(df.plc_adj_sales_lag_3==plc_adj_sales_lag_3)&(df.plc_adj_sales_lag_6==plc_adj_sales_lag_6)&(df.plc_adj_sales_lag_12==plc_adj_sales_lag_12)&(df.plc_sales_ma_3==plc_sales_ma_3)&(df.plc_sales_ma_6==plc_sales_ma_6)&(df.price_ratio==price_ratio)&(df.discount_depth==discount_depth)]['sales_volume'][0]
