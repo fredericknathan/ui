@@ -5,7 +5,7 @@ import ssl
 import smtplib
 from email.mime.text import MIMEText
 
-# CONSTANTS
+# CONSTANT
 MODEL_PATH = "product_f_pricing_model_top3_region_stable.pkl"
 SENDER = "fredericknathanirmawan@gmail.com"
 PASSWORD = "xzlc yjif lwqr fvky"
