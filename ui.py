@@ -3,24 +3,68 @@ import pickle
 from email.message import EmailMessage
 import ssl
 import smtplib
+import pandas as pd
+import plotly.express as px
 
 # CONSTANTS
 MODEL_PATH = "product_f_pricing_model_top3_region_stable.pkl"
 SENDER = "fredericknathanirmawan@gmail.com"
 PASSWORD = "xzlc yjif lwqr fvky"
 
-st.markdown("## 📊 Simulate Sales & Price Elasticity")
+with open(MODEL_PATH, "rb") as file:
+  model = pickle.load(file)
+
+def generate_data(model, data):
+  data_dict = {
+       'Date': [],
+       'Type': [],
+       'Vol': []
+  }
+  df_u = data.drop_duplicates(subset=['bill_date'], keep='first')
+  for _, row in df_u.iterrows():
+       data_dict['Date'].append(row['bill_date'])
+       data_dict['Date'].append(row['bill_date'])
+       data_dict['Type'].append('Current Sales Volume')
+       data_dict['Type'].append('Predicted Sales Volume')
+       data_dict['Vol'].append(row['sales_volume'])
+       data_dict['Vol'].append(model.predict([[row.year, row.month, row.kompetitor, row.asp, row.rbp, row.quarter, row.plc_weight, row.plc_adj_asp, row.regional_ship_to_Bali, row.regional_ship_to_Bengkulu, row.regional_ship_to_Lampung, row.plc_phase_Introduction, row.plc_phase_Growth, row.plc_phase_Maturity, row.plc_adj_sales_lag_1, row.plc_adj_sales_lag_3, row.plc_adj_sales_lag_6, row.plc_adj_sales_lag_12, row.plc_sales_ma_3, row.plc_sales_ma_6, row.price_ratio, row.discount_depth]])[0])
+  return data_dict
+
+df = pd.read_parquet('data_features.parquet')
+
+st.markdown("## 📊 Dashboard")
+year_ = st.number_input("Input Year", format="%g")
+month_ = st.number_input("Input Month", format="%g")
+region_ = st.selectbox(
+    "Choose region:",
+    ["Bali", "Bengkulu", "Lampung"]
+)
+
+if region_ == "Bali":
+     data = generate_data(model, df[(df.regional_ship_to_Bali == True) & (df.month == month_) & (df.year == year_)])
+elif region_ == "Bengkulu":
+     data = generate_data(model, df[(df.regional_ship_to_Bengkulu == True) & (df.month == month_) & (df.year == year_)])
+elif region_ == "Lampung":
+     data = generate_data(model, df[(df.regional_ship_to_Lampung == True) & (df.month == month_) & (df.year == year_)])
+
+
+fig = px.bar(data, x='Date', y='Vol', color='Type', barmode='group',
+             title=f"{int(year_)} Month {int(month_)} Daily Sales Volume for {region_}")
+st.plotly_chart(fig)
+
+
+st.markdown("## 🧠 Simulate Sales & Price Elasticity")
 
 RECEIVER = st.text_input("Input your E-Mail")
 
-year = st.number_input("Year")
-month = st.number_input("Month")
-kompetitor = st.number_input("Kompetitor")
-asp = st.number_input("ASP")
-rbp = st.number_input("RBP")
-quarter = st.number_input("Quarter")
-plc_weight = st.number_input("plc_weight")
-plc_adj_asp = st.number_input("plc_adj_asp")
+year = st.number_input("Year", format="%g")
+month = st.number_input("Month", format="%g")
+kompetitor = st.number_input("Kompetitor", format="%g")
+asp = st.number_input("ASP", format="%g")
+rbp = st.number_input("RBP", format="%g")
+quarter = st.number_input("Quarter", format="%g")
+plc_weight = st.number_input("plc_weight", format="%g")
+plc_adj_asp = st.number_input("plc_adj_asp", format="%g")
 regional_ship_to_Bali = st.checkbox("Regional Ship to Bali")
 regional_ship_to_Bengkulu = st.checkbox("Regional Ship to Bengkulu")
 regional_ship_to_Lampung = st.checkbox("Regional Ship to Lampung")
@@ -125,9 +169,6 @@ st.markdown("""
     </script>
 """, unsafe_allow_html=True)
 
-with open(MODEL_PATH, "rb") as file:
-        model = pickle.load(file)
-
 if button:
     y_pred = model.predict([features])
 
@@ -174,3 +215,5 @@ if button:
     st.warning('Summary has been sent to your mail', icon="🚨")
     st.info(f"🧮 ASP (Current Price): **{asp}** units")
     st.success(f"📈 Predicted Sales (New Price): **{y_pred[0]} units**")
+
+df = pd.read_parquet('C:\\Users\\User\\Desktop\\Projects\\Simple UI\\data_features.parquet')
