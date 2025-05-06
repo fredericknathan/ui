@@ -1,2 +1,3 @@
 xgboost
 plotly
+scikit-learn
