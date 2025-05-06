@@ -235,20 +235,23 @@ if button:
     Recommended New Price: Rp131,250 (+5.0%)
     <br>
     </br>
-  
+    <br>
+    </br>
     Expected Outcomes:
     <br>
     - Revenue Increase: Rp+58,125,000 (+4.7%)
     </br>
     <br>
-    - Sales Volume Impact: {y_pred[0]} units ({(abs(y_pred - sales_volume) / sales_volume) * 100} % {"increase" if y_pred > sales_volume else "decrease"})
+    - Sales Volume Impact: {y_pred[0]} units ({(abs(y_pred - sales_volume) / sales_volume) * 100}% {"increase" if y_pred > sales_volume else "decrease"})
     </br>
 
     <br>
     - Market Position: Maintains 3% price advantage vs competitors
     </br>
-
-
+    <br>
+    </br>
+    <br>
+    </br>
     Analysis Details:
     <br>
     - Price Elasticity: -1.12 (demand is relatively inelastic)
