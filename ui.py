@@ -227,18 +227,38 @@ if button:
     Current Price: Rp{asp}
     Current Sales Volume: {sales_volume}
     Recommended New Price: Rp131,250 (+5.0%)
+    <br>
+    </br>
   
     Expected Outcomes:
+    <br>
     - Revenue Increase: Rp+58,125,000 (+4.7%)
+    </br>
+    <br>
     - Sales Volume Impact: {y_pred} units ({(abs(y_pred - sales_volume) / sales_volume) * 100, 2} % {"increase" if y_pred > sales_volume else "decrease"})
+    </br>
+
+    <br>
     - Market Position: Maintains 3% price advantage vs competitors
+    </br>
+
 
     Analysis Details:
+    <br>
     - Price Elasticity: -1.12 (demand is relatively inelastic)
-    - Optimal Price Range: Rp130,000-Rp132,000
-    - Best Implementation Timing: Next month (traditionally strong sales period)
+    </br>
 
+    <br>
+    - Optimal Price Range: Rp130,000-Rp132,000
+    </br>
+
+    <br>
+    - Best Implementation Timing: Next month (traditionally strong sales period)
+    </br>
+
+    <br>
     Recommended Action: APPROVE 5% PRICE INCREASE
+    </br>
     </body>
     </html>
     """
