@@ -224,8 +224,14 @@ if button:
     html = f"""<html><body>
     Updated Recommendation for Product F Pricing:
     Region: Jawa Barat
+    <br>
+    </br>
     Current Price: Rp{asp}
+    <br>
+    </br>
     Current Sales Volume: {sales_volume}
+    <br>
+    </br>
     Recommended New Price: Rp131,250 (+5.0%)
     <br>
     </br>
@@ -235,7 +241,7 @@ if button:
     - Revenue Increase: Rp+58,125,000 (+4.7%)
     </br>
     <br>
-    - Sales Volume Impact: {y_pred} units ({(abs(y_pred - sales_volume) / sales_volume) * 100, 2} % {"increase" if y_pred > sales_volume else "decrease"})
+    - Sales Volume Impact: {y_pred[0]} units ({(abs(y_pred - sales_volume) / sales_volume) * 100} % {"increase" if y_pred > sales_volume else "decrease"})
     </br>
 
     <br>
