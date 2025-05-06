@@ -3,16 +3,13 @@ import pickle
 from email.message import EmailMessage
 import ssl
 import smtplib
-from email.mime.text import MIMEText
 
-# CONSTANT
+# CONSTANTS
 MODEL_PATH = "product_f_pricing_model_top3_region_stable.pkl"
 SENDER = "fredericknathanirmawan@gmail.com"
 PASSWORD = "xzlc yjif lwqr fvky"
 
 st.markdown("## 📊 Simulate Sales & Price Elasticity")
-# org_price = st.number_input("Original Price (Rp)")
-# new_price = st.number_input("New Price (Rp)")
 
 RECEIVER = st.text_input("Input your E-Mail")
 
@@ -50,7 +47,7 @@ feature_names = [
     "plc_adj_asp",
     "Regional Ship to Bali",
     "Regional Ship to Bengkulu",
-    "Regional Ship to Lampung",
+    "Regional Ship to Lamput",
     "plc_phase_Introduction",
     "plc_phase_Growth",
     "plc_phase_Maturity",
@@ -156,11 +153,11 @@ if button:
           </ul>
         </div>
 
-        <div style="background:#e6ffed;padding:12px;border-radius:6px;margin-bottom:10px;">
-          📈 Predicted Sales (New Price):<b> {y_pred[0]:.2f} units </b>
+        <div style="background:#e6f0ff;padding:12px;border-radius:6px;margin-bottom:10px;">
+          🧮 ASP (Current Price):<b> {asp:.2f} </b>
         </div>
-        <div style="background:#e6f0ff;padding:12px;border-radius:6px;">
-          🧮 Estimated Price Elasticity:<b> {None} </b>
+        <div style="background:#e6ffed;padding:12px;border-radius:6px;">
+          📈 Predicted Sales (New Price):<b> {y_pred[0]:.2f} units </b>
         </div>
       </body>
     </html>
@@ -175,29 +172,5 @@ if button:
         smtp.send_message(em)
     
     st.warning('Summary has been sent to your mail', icon="🚨")
-
-# if button:
-#     y_pred = model.predict([features])
-
-#     em = EmailMessage()
-#     em['From'] = SENDER
-#     em['To'] = RECEIVER
-#     em["Subject"] = 'a'
-#     # em.set_content(str(y_pred[0]))
-
-#     context = ssl.create_default_context()
-#     html = """
-#     <html>
-#     asdasd
-#     </html>
-#     """
-#     em.attach(MIMEText(html, "html"))
-
-#     with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-#         smtp.login(SENDER, PASSWORD)
-#         smtp.send_message(em)
-#         # smtp.sendmail(SENDER, RECEIVER, em.as_string())
-
-
+    st.info(f"🧮 ASP (Current Price): **{asp}** units")
     st.success(f"📈 Predicted Sales (New Price): **{y_pred[0]} units**")
-    st.info(f"🧮 Estimated Price Elasticity: **{None}**")
