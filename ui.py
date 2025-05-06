@@ -21,20 +21,20 @@ def generate_data(model, data):
   data_dict = {
        'Date': [],
        'Type': [],
-       'Vol': [],
-       'Sales': []
+       'Volume': [],
+       'Revenue': []
   }
   df_u = data.drop_duplicates(subset=['bill_date'], keep='first')
   for _, row in df_u.iterrows():
        data_dict['Date'].append(row['bill_date'])
        data_dict['Date'].append(row['bill_date'])
-       data_dict['Type'].append('Current Sales Volume')
-       data_dict['Type'].append('Predicted Sales Volume')
-       data_dict['Vol'].append(row['sales_volume'])
+       data_dict['Type'].append('Current')
+       data_dict['Type'].append('Predicted')
+       data_dict['Volume'].append(row['sales_volume'])
        y_pred = model.predict([[row.year, row.month, row.kompetitor, row.asp, row.rbp, row.quarter, row.plc_weight, row.plc_adj_asp, row.regional_ship_to_Bali, row.regional_ship_to_Bengkulu, row.regional_ship_to_Lampung, row.plc_phase_Introduction, row.plc_phase_Growth, row.plc_phase_Maturity, row.plc_adj_sales_lag_1, row.plc_adj_sales_lag_3, row.plc_adj_sales_lag_6, row.plc_adj_sales_lag_12, row.plc_sales_ma_3, row.plc_sales_ma_6, row.price_ratio, row.discount_depth]])[0]
-       data_dict['Vol'].append(y_pred)
-       data_dict['Sales'].append(row['sales_volume'] * row['asp'])
-       data_dict['Sales'].append(y_pred * row['asp'])
+       data_dict['Volume'].append(y_pred)
+       data_dict['Revenue'].append(row['sales_volume'] * row['asp'])
+       data_dict['Revenue'].append(y_pred * row['asp'])
 
   return data_dict
 
@@ -59,13 +59,13 @@ col1, col2 = st.columns(2)
 # title=f"{int(year_)} Month {int(month_)} Daily Sales Volume for {region_}"
 with col1:
     st.subheader("Volume")
-    fig = px.bar(data, x='Date', y='Vol', color='Type', barmode='group')
+    fig = px.bar(data, x='Date', y='Volume', color='Type', barmode='group')
     fig.update_layout(width=10000)
     st.plotly_chart(fig)
 
 with col2:
-    st.subheader("Sales")
-    fig = px.bar(data, x='Date', y='Sales', color='Type', barmode='group')
+    st.subheader("Revenue")
+    fig = px.bar(data, x='Date', y='Revenue', color='Type', barmode='group')
     st.plotly_chart(fig)
 
 
