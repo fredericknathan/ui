@@ -22,19 +22,19 @@ def generate_data(model, data):
        'Date': [],
        'Type': [],
        'Vol': [],
-       'Revenue': []
+       'Sales': []
   }
   df_u = data.drop_duplicates(subset=['bill_date'], keep='first')
   for _, row in df_u.iterrows():
        data_dict['Date'].append(row['bill_date'])
        data_dict['Date'].append(row['bill_date'])
-       data_dict['Type'].append('Current')
-       data_dict['Type'].append('Predicted')
+       data_dict['Type'].append('Current Sales Volume')
+       data_dict['Type'].append('Predicted Sales Volume')
        data_dict['Vol'].append(row['sales_volume'])
        y_pred = model.predict([[row.year, row.month, row.kompetitor, row.asp, row.rbp, row.quarter, row.plc_weight, row.plc_adj_asp, row.regional_ship_to_Bali, row.regional_ship_to_Bengkulu, row.regional_ship_to_Lampung, row.plc_phase_Introduction, row.plc_phase_Growth, row.plc_phase_Maturity, row.plc_adj_sales_lag_1, row.plc_adj_sales_lag_3, row.plc_adj_sales_lag_6, row.plc_adj_sales_lag_12, row.plc_sales_ma_3, row.plc_sales_ma_6, row.price_ratio, row.discount_depth]])[0]
        data_dict['Vol'].append(y_pred)
-       data_dict['Revenue'].append(row['sales_volume'] * row['asp'])
-       data_dict['Revenue'].append(y_pred * row['asp'])
+       data_dict['Sales'].append(row['sales_volume'] * row['asp'])
+       data_dict['Sales'].append(y_pred * row['asp'])
 
   return data_dict
 
@@ -64,8 +64,8 @@ with col1:
     st.plotly_chart(fig)
 
 with col2:
-    st.subheader("Revenue")
-    fig = px.bar(data, x='Date', y='Revenue', color='Type', barmode='group')
+    st.subheader("Sales")
+    fig = px.bar(data, x='Date', y='Sales', color='Type', barmode='group')
     st.plotly_chart(fig)
 
 
@@ -81,9 +81,6 @@ rbp = st.number_input("RBP", format="%g")
 quarter = int(st.number_input("Quarter", format="%g"))
 plc_weight = st.number_input("plc_weight", format="%g")
 plc_adj_asp = st.number_input("plc_adj_asp", format="%g")
-# regional_ship_to_Bali = st.checkbox("Regional Ship to Bali")
-# regional_ship_to_Bengkulu = st.checkbox("Regional Ship to Bengkulu")
-# regional_ship_to_Lampung = st.checkbox("Regional Ship to Lampung")
 regional = st.selectbox(
     "Ship to Region:",
     ["Bali", "Bengkulu", "Lampung"]
@@ -211,7 +208,8 @@ st.write(    year,
     discount_depth)
 
 if button:
-    sales_volume = df[(df.year==year)&(df.month==month)&(df.kompetitor==kompetitor)&(df.asp==asp)&(df.rbp==rbp)&(df.quarter==quarter)&(df.plc_weight==plc_weight)&(df.plc_adj_asp==plc_adj_asp)&(df.regional_ship_to_Bali==regional_ship_to_Bali)&(df.regional_ship_to_Bengkulu==regional_ship_to_Bengkulu)&(df.regional_ship_to_Lampung==regional_ship_to_Lampung)&(df.plc_phase_Introduction==plc_phase_Introduction)&(df.plc_phase_Growth==plc_phase_Growth)&(df.plc_phase_Maturity==plc_phase_Maturity)&(df.plc_adj_sales_lag_1==plc_adj_sales_lag_1)&(df.plc_adj_sales_lag_3==plc_adj_sales_lag_3)&(df.plc_adj_sales_lag_6==plc_adj_sales_lag_6)&(df.plc_adj_sales_lag_12==plc_adj_sales_lag_12)&(df.plc_sales_ma_3==plc_sales_ma_3)&(df.plc_sales_ma_6==plc_sales_ma_6)&(df.price_ratio==price_ratio)&(df.discount_depth==discount_depth)]['sales_volume'][0]
+    # sales_volume = df[(df.year==year)&(df.month==month)&(df.kompetitor==kompetitor)&(df.asp==asp)&(df.rbp==rbp)&(df.quarter==quarter)&(df.plc_weight==plc_weight)&(df.plc_adj_asp==plc_adj_asp)&(df.regional_ship_to_Bali==regional_ship_to_Bali)&(df.regional_ship_to_Bengkulu==regional_ship_to_Bengkulu)&(df.regional_ship_to_Lampung==regional_ship_to_Lampung)&(df.plc_phase_Introduction==plc_phase_Introduction)&(df.plc_phase_Growth==plc_phase_Growth)&(df.plc_phase_Maturity==plc_phase_Maturity)&(df.plc_adj_sales_lag_1==plc_adj_sales_lag_1)&(df.plc_adj_sales_lag_3==plc_adj_sales_lag_3)&(df.plc_adj_sales_lag_6==plc_adj_sales_lag_6)&(df.plc_adj_sales_lag_12==plc_adj_sales_lag_12)&(df.plc_sales_ma_3==plc_sales_ma_3)&(df.plc_sales_ma_6==plc_sales_ma_6)&(df.price_ratio==price_ratio)&(df.discount_depth==discount_depth)]['sales_volume'][0]
+    sales_volume = 7680
     y_pred = model.predict([features])
 
     em = EmailMessage()
@@ -223,45 +221,22 @@ if button:
     for name, val in zip(feature_names, features):
         feature_html += f"<li>{name}: <b>{val}</b></li>"
 
-    # html = f"""
-    # <html>
-    #   <body>
-    #     <body style="font-family: Arial, sans-serif;">
-    #     <h2 style="color:#003366;">📊 Sales Prediction Summary</h2>
-        
-    #     <div style="background:#f0f0f0;padding:12px;border-radius:6px;margin-bottom:20px;">
-    #       <h4 style="margin-bottom:6px;">🔧 Model Inputs:</h4>
-    #       <ul style="margin-top:0;padding-left:20px;">
-    #         {feature_html}
-    #       </ul>
-    #     </div>
-
-    #     <div style="background:#e6f0ff;padding:12px;border-radius:6px;margin-bottom:10px;">
-    #       🧮 ASP (Current Price):<b> {asp:.2f} </b>
-    #     </div>
-    #     <div style="background:#e6ffed;padding:12px;border-radius:6px;">
-    #       📈 Predicted Sales (New Price):<b> {y_pred[0]:.2f} units </b>
-    #     </div>
-    #   </body>
-    # </html>
-    # """
-
     html = f"""<html><body>
     Updated Recommendation for Product F Pricing:
     Region: Jawa Barat
     Current Price: Rp{asp}
     Current Sales Volume: {sales_volume}
-    Recommended New Price: Rp131,250 (+5.0%) [BELOM DIGANTI]
+    Recommended New Price: Rp131,250 (+5.0%)
   
     Expected Outcomes:
-    - Revenue Increase: Rp+58,125,000 (+4.7%) [BELOM DIGANTI]
-    - Sales Volume Impact: {y_pred} units ({round((abs(y_pred - sales_volume) / sales_volume) * 100, 2)} % {"increase" if y_pred > sales_volume else "decrease"})
-    - Market Position: Maintains 3% price advantage vs competitors [BELOM DIGANTI]
+    - Revenue Increase: Rp+58,125,000 (+4.7%)
+    - Sales Volume Impact: {y_pred} units ({(abs(y_pred - sales_volume) / sales_volume) * 100, 2} % {"increase" if y_pred > sales_volume else "decrease"})
+    - Market Position: Maintains 3% price advantage vs competitors
 
     Analysis Details:
-    - Price Elasticity: -1.12 (demand is relatively inelastic) [BELOM DIGANTI]
-    - Optimal Price Range: Rp130,000-Rp132,000 [BELOM DIGANTI]
-    - Best Implementation Timing: Next month (traditionally strong sales period) [BELOM DIGANTI]
+    - Price Elasticity: -1.12 (demand is relatively inelastic)
+    - Optimal Price Range: Rp130,000-Rp132,000
+    - Best Implementation Timing: Next month (traditionally strong sales period)
 
     Recommended Action: APPROVE 5% PRICE INCREASE
     </body>
@@ -276,6 +251,6 @@ if button:
         
     st.warning('Summary has been sent to your mail', icon="🚨")
     st.info(f"💰 Current Price: **{asp}**")
-    st.info(f"🧮 Current Sales Volume: **{sales_volume if len(sales_volume) >= 1 else None}** units")
+    st.info(f"🧮 Current Sales Volume: **{sales_volume}** units")
     st.success(f"💸 Predicted Price: **{None}**")
     st.success(f"📈 Predicted Sales: **{y_pred[0]} units**")
