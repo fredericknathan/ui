@@ -215,5 +215,3 @@ if button:
     st.warning('Summary has been sent to your mail', icon="🚨")
     st.info(f"🧮 ASP (Current Price): **{asp}** units")
     st.success(f"📈 Predicted Sales (New Price): **{y_pred[0]} units**")
-
-df = pd.read_parquet('C:\\Users\\User\\Desktop\\Projects\\Simple UI\\data_features.parquet')
