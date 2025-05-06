@@ -26,7 +26,7 @@ plc_weight = st.number_input("plc_weight")
 plc_adj_asp = st.number_input("plc_adj_asp")
 regional_ship_to_Bali = st.checkbox("Regional Ship to Bali")
 regional_ship_to_Bengkulu = st.checkbox("Regional Ship to Bengkulu")
-regional_ship_to_Lampung = st.checkbox("Regional Ship to Lamput")
+regional_ship_to_Lampung = st.checkbox("Regional Ship to Lampung")
 plc_phase_Introduction = st.checkbox("plc_phase_introduction")
 plc_phase_Growth = st.checkbox("plc_phase_growth")
 plc_phase_Maturity = st.checkbox("plc_maturity")
@@ -50,7 +50,7 @@ feature_names = [
     "plc_adj_asp",
     "Regional Ship to Bali",
     "Regional Ship to Bengkulu",
-    "Regional Ship to Lamput",
+    "Regional Ship to Lampung",
     "plc_phase_Introduction",
     "plc_phase_Growth",
     "plc_phase_Maturity",
