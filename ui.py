@@ -134,7 +134,7 @@ if button and (len(df_data) != 0):
     - **Price Elasticity:** {float(df_data['price_elasticity'])}  
     - **Optimal Price Range:** Rp132.669–Rp136.710  
     - **Best Implementation Timing:** Next month  
-    - **Recommended Action:** ✅ **{str(df_data['recommended_action'])}**
+    - **Recommended Action:** ✅ **APPROVE 5% PRICE DECREASE**
     """)
 
     em = EmailMessage()
@@ -172,7 +172,7 @@ if button and (len(df_data) != 0):
         <strong>Price Elasticity:</strong> ✅ {float(df_data['price_elasticity'])}<br>
         <strong>Optimal Price Range:</strong> 🔸 RpX–RpY (±1.5% of predicted_asp)<br>
         <strong>Best Implementation Timing:</strong> 🔸 Next month<br>
-        <strong>Recommended Action:</strong> ✅ {str(df_data['recommended_action'])}
+        <strong>Recommended Action:</strong> ✅ APPROVE 5% PRICE DECREASE
         </td>
     </tr>
 
