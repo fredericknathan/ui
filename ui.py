@@ -5,14 +5,12 @@ import ssl
 import smtplib
 import pandas as pd
 import plotly.express as px
-from sklearn.metrics.pairwise import cosine_similarity
-
 
 # CONSTANTS
 st.set_page_config(layout="wide")
 MODEL_PATH = "product_f_pricing_model_top3_region_stable.pkl"
-SENDER = "fredericknathanirmawan@gmail.com"
-PASSWORD = "xzlc yjif lwqr fvky"
+SENDER = "aimuliaceramicsgroup@gmail.com"
+PASSWORD = "tvlj nsyt pxzt vzwm"
 
 with open(MODEL_PATH, "rb") as file:
   model = pickle.load(file)
@@ -21,20 +19,20 @@ def generate_data(model, data):
   data_dict = {
        'Date': [],
        'Type': [],
-       'Volume': [],
-       'Revenue': []
+       'Vol': [],
+       'Sales': []
   }
   df_u = data.drop_duplicates(subset=['bill_date'], keep='first')
   for _, row in df_u.iterrows():
        data_dict['Date'].append(row['bill_date'])
        data_dict['Date'].append(row['bill_date'])
-       data_dict['Type'].append('Current')
-       data_dict['Type'].append('Predicted')
-       data_dict['Volume'].append(row['sales_volume'])
+       data_dict['Type'].append('Current Sales Volume')
+       data_dict['Type'].append('Predicted Sales Volume')
+       data_dict['Vol'].append(row['sales_volume'])
        y_pred = model.predict([[row.year, row.month, row.kompetitor, row.asp, row.rbp, row.quarter, row.plc_weight, row.plc_adj_asp, row.regional_ship_to_Bali, row.regional_ship_to_Bengkulu, row.regional_ship_to_Lampung, row.plc_phase_Introduction, row.plc_phase_Growth, row.plc_phase_Maturity, row.plc_adj_sales_lag_1, row.plc_adj_sales_lag_3, row.plc_adj_sales_lag_6, row.plc_adj_sales_lag_12, row.plc_sales_ma_3, row.plc_sales_ma_6, row.price_ratio, row.discount_depth]])[0]
-       data_dict['Volume'].append(y_pred)
-       data_dict['Revenue'].append(row['sales_volume'] * row['asp'])
-       data_dict['Revenue'].append(y_pred * row['asp'])
+       data_dict['Vol'].append(y_pred)
+       data_dict['Sales'].append(row['sales_volume'] * row['asp'])
+       data_dict['Sales'].append(y_pred * row['asp'])
 
   return data_dict
 
@@ -56,16 +54,15 @@ elif region_ == "Lampung":
      data = generate_data(model, df[(df.regional_ship_to_Lampung == True) & (df.month == month_) & (df.year == year_)])
 
 col1, col2 = st.columns(2)
-# title=f"{int(year_)} Month {int(month_)} Daily Sales Volume for {region_}"
 with col1:
     st.subheader("Volume")
-    fig = px.bar(data, x='Date', y='Volume', color='Type', barmode='group')
+    fig = px.bar(data, x='Date', y='Vol', color='Type', barmode='group')
     fig.update_layout(width=10000)
     st.plotly_chart(fig)
 
 with col2:
-    st.subheader("Revenue")
-    fig = px.bar(data, x='Date', y='Revenue', color='Type', barmode='group')
+    st.subheader("Sales")
+    fig = px.bar(data, x='Date', y='Sales', color='Type', barmode='group')
     st.plotly_chart(fig)
 
 
@@ -75,86 +72,10 @@ RECEIVER = st.text_input("Input your E-Mail")
 
 year = int(st.number_input("Year", format="%g"))
 month = int(st.number_input("Month", format="%g"))
-kompetitor = int(st.number_input("Kompetitor", format="%g"))
-asp = st.number_input("ASP", format="%g")
-rbp = st.number_input("RBP", format="%g")
-quarter = int(st.number_input("Quarter", format="%g"))
-plc_weight = st.number_input("plc_weight", format="%g")
-plc_adj_asp = st.number_input("plc_adj_asp", format="%g")
 regional = st.selectbox(
     "Ship to Region:",
     ["Bali", "Bengkulu", "Lampung"]
 )
-regional_ship_to_Bali = False
-regional_ship_to_Bengkulu = False
-regional_ship_to_Lampung = False
-if regional == "Bali":
-    regional_ship_to_Bali = True
-elif regional == "Bengkulu":
-    regional_ship_to_Bengkulu = True
-elif regional == "Lampung":
-    regional_ship_to_Lampung = True
-plc_phase_Introduction = st.checkbox("plc_phase_introduction")
-plc_phase_Growth = st.checkbox("plc_phase_growth")
-plc_phase_Maturity = st.checkbox("plc_maturity")
-plc_adj_sales_lag_1 = 10137.6 # st.checkbox("plc_adj_sales_lag_1")
-plc_adj_sales_lag_3 = 10137.6 # st.checkbox("plc_adj_sales_lag_3")
-plc_adj_sales_lag_6 = 11059.2 # st.checkbox("plc_adj_sales_lag_6")
-plc_adj_sales_lag_12 = 11059.2 # st.checkbox("plc_adj_sales_lag_12")
-plc_sales_ma_3 = 2757.333333 # st.checkbox("plc_sales_ma_3")
-plc_sales_ma_6 = 2400.888889 # st.checkbox("plc_sales_ma_6")
-price_ratio = st.number_input("Price Ratio", format="%g")
-discount_depth = st.number_input("Discount Depth", format="%g")
-
-feature_names = [
-    "Year",
-    "Month",
-    "Kompetitor",
-    "ASP",
-    "RBP",
-    "Quarter",
-    "plc_weight",
-    "plc_adj_asp",
-    "Regional Ship to Bali",
-    "Regional Ship to Bengkulu",
-    "Regional Ship to Lamput",
-    "plc_phase_Introduction",
-    "plc_phase_Growth",
-    "plc_phase_Maturity",
-    "plc_adj_sales_lag_1",
-    "plc_adj_sales_lag_3",
-    "plc_adj_sales_lag_6",
-    "plc_adj_sales_lag_12",
-    "plc_sales_ma_3",
-    "plc_sales_ma_6",
-    "Price Ratio",
-    "Discount Depth"
-]
-
-features = [
-    year,
-    month,
-    kompetitor,
-    asp,
-    rbp,
-    quarter,
-    plc_weight,
-    plc_adj_asp,
-    regional_ship_to_Bali,
-    regional_ship_to_Bengkulu,
-    regional_ship_to_Lampung,
-    plc_phase_Introduction,
-    plc_phase_Growth,
-    plc_phase_Maturity,
-    plc_adj_sales_lag_1,
-    plc_adj_sales_lag_3,
-    plc_adj_sales_lag_6,
-    plc_adj_sales_lag_12,
-    plc_sales_ma_3,
-    plc_sales_ma_6,
-    price_ratio,
-    discount_depth
-]
 
 st.markdown("""
     <style>
@@ -184,70 +105,78 @@ st.markdown("""
     </script>
 """, unsafe_allow_html=True)
 
+df_data_ = pd.read_csv('result_forecast_next5month_retrain.csv')
+df_data = df_data_[(df_data_.year==year) & (df_data_.month==month) * (df_data_.region==regional)]
 
-if button:
-    # sales_volume = df[(df.year==year)&(df.month==month)&(df.kompetitor==kompetitor)&(df.asp==asp)&(df.rbp==rbp)&(df.quarter==quarter)&(df.plc_weight==plc_weight)&(df.plc_adj_asp==plc_adj_asp)&(df.regional_ship_to_Bali==regional_ship_to_Bali)&(df.regional_ship_to_Bengkulu==regional_ship_to_Bengkulu)&(df.regional_ship_to_Lampung==regional_ship_to_Lampung)&(df.plc_phase_Introduction==plc_phase_Introduction)&(df.plc_phase_Growth==plc_phase_Growth)&(df.plc_phase_Maturity==plc_phase_Maturity)&(df.plc_adj_sales_lag_1==plc_adj_sales_lag_1)&(df.plc_adj_sales_lag_3==plc_adj_sales_lag_3)&(df.plc_adj_sales_lag_6==plc_adj_sales_lag_6)&(df.plc_adj_sales_lag_12==plc_adj_sales_lag_12)&(df.plc_sales_ma_3==plc_sales_ma_3)&(df.plc_sales_ma_6==plc_sales_ma_6)&(df.price_ratio==price_ratio)&(df.discount_depth==discount_depth)]['sales_volume'][0]
-    sales_volume = 7680
-    y_pred = model.predict([features])
+if button and (len(df_data) != 0):
+    if len(df_data) > 1:
+        df_data = df_data.iloc[0]
+    st.markdown("## 📊 Product F Pricing Recommendation")
+
+    st.markdown("### 🟦 Updated Recommendation")
+    st.markdown(f"""
+    - **Region:** {regional}  
+    - **Current Price:** Rp{float(df_data['current_asp'])}  
+    - **Current Sales Volume:** {int(df_data['sales_volume'])}  
+    - **Predicted Sales Volume:** {int(round(df_data['predicted_sales_volume'],0))}  
+    - **Recommended New Price:** **{df_data['predicted_asp']}** _({df_data['price_increase_pct']}%)_
+    """)
+
+    st.markdown("### 🟨 Expected Outcomes")
+    st.markdown(f"""
+    - **Revenue Change:** **Rp+{float(round(df_data['revenue_increase'],2))}** _({float(round(df_data['revenue_increase_pct'],2))}%)_  
+    - **Sales Volume Impact:** **{int(round(df_data['sales_volume_impact'],2))} units** _({float(round(df_data['sales_volume_impact_pct'],2))}%)_  
+    - **Market Position:** Maintains 3% price advantage vs competitors
+    """)
+
+    st.markdown("### 🟩 Analysis Details")
+    st.markdown(f"""
+    - **Price Elasticity:** {float(df_data['price_elasticity'])}  
+    - **Optimal Price Range:** Rp132.669–Rp136.710  
+    - **Best Implementation Timing:** Next month  
+    - **Recommended Action:** ✅ **{str(df_data['recommended_action'])}**
+    """)
 
     em = EmailMessage()
     em['From'] = SENDER
     em['To'] = RECEIVER
     em['Subject'] = f'Revised Pricing Approval Request - {regional}'
+    html = f"""
+    <table width="100%" cellpadding="10" cellspacing="0" style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border-collapse: collapse;">
+    <!-- Header -->
+    <tr style="background-color: #e6f0fa;">
+        <td>
+        <strong>Updated Recommendation for Product F Pricing:</strong><br><br>
+        <strong>Region:</strong> ✅ {regional}<br>
+        <strong>Current Price:</strong> ✅ Rp{float(df_data['current_asp'])}<br>
+        <strong>Current Sales Volume:</strong> ✅ {int(df_data['sales_volume'])}<br>
+        <strong>Predicted Sales Volume:</strong> ✅ {int(round(df_data['predicted_sales_volume'],0))}<br>
+        <strong>Recommended New Price:</strong> ✅ Rp{float(df_data['predicted_asp'])} ({float(df_data['price_increase_pct'])}% increase)
+        </td>
+    </tr>
 
-    feature_html = ""
-    for name, val in zip(feature_names, features):
-        feature_html += f"<li>{name}: <b>{val}</b></li>"
+    <!-- Expected Outcomes -->
+    <tr style="background-color: #fff8e1;">
+        <td>
+        <strong>Expected Outcomes:</strong><br><br>
+        <strong>Revenue Change:</strong> ✅ Rp{float(round(df_data['revenue_increase'],2))} ({float(round(df_data['revenue_increase_pct'],2))}% increase)<br>
+        <strong>Sales Volume Impact:</strong> ✅ {int(round(df_data['sales_volume_impact'],2))} units ({float(round(df_data['sales_volume_impact_pct'],2))}% impact)<br>
+        <strong>Market Position:</strong> Maintains 3% price advantage vs competitors
+        </td>
+    </tr>
 
-    html = f"""<html><body>
-    Updated Recommendation for Product F Pricing:
-    Region: Jawa Barat
-    <br>
-    </br>
-    Current Price: Rp{asp}
-    <br>
-    </br>
-    Current Sales Volume: {sales_volume}
-    <br>
-    </br>
-    Recommended New Price: Rp131,250 (+5.0%)
-    <br>
-    </br>
-    <br>
-    </br>
-    Expected Outcomes:
-    <br>
-    - Revenue Increase: Rp+58,125,000 (+4.7%)
-    </br>
-    <br>
-    - Sales Volume Impact: {y_pred[0]} units ({(abs(y_pred - sales_volume) / sales_volume) * 100}% {"increase" if y_pred > sales_volume else "decrease"})
-    </br>
+    <!-- Analysis Details -->
+    <tr style="background-color: #e8f5e9;">
+        <td>
+        <strong>Analysis Details:</strong><br><br>
+        <strong>Price Elasticity:</strong> ✅ {float(df_data['price_elasticity'])}<br>
+        <strong>Optimal Price Range:</strong> 🔸 RpX–RpY (±1.5% of predicted_asp)<br>
+        <strong>Best Implementation Timing:</strong> 🔸 Next month<br>
+        <strong>Recommended Action:</strong> ✅ {str(df_data['recommended_action'])}
+        </td>
+    </tr>
 
-    <br>
-    - Market Position: Maintains 3% price advantage vs competitors
-    </br>
-    <br>
-    </br>
-    <br>
-    </br>
-    Analysis Details:
-    <br>
-    - Price Elasticity: -1.12 (demand is relatively inelastic)
-    </br>
-
-    <br>
-    - Optimal Price Range: Rp130,000-Rp132,000
-    </br>
-
-    <br>
-    - Best Implementation Timing: Next month (traditionally strong sales period)
-    </br>
-
-    <br>
-    Recommended Action: APPROVE 5% PRICE INCREASE
-    </br>
-    </body>
-    </html>
+    </table>
     """
     em.add_alternative(html, subtype="html")
 
@@ -255,9 +184,6 @@ if button:
     with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
         smtp.login(SENDER, PASSWORD)
         smtp.send_message(em)
-        
-    st.warning('Summary has been sent to your mail', icon="🚨")
-    st.info(f"💰 Current Price: **{asp}**")
-    st.info(f"🧮 Current Sales Volume: **{sales_volume}** units")
-    st.success(f"💸 Predicted Price: **{None}**")
-    st.success(f"📈 Predicted Sales: **{y_pred[0]} units**")
+
+elif button and (len(df_data) == 0):
+    st.warning("Error! Data not found")
