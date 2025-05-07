@@ -106,7 +106,7 @@ st.markdown("""
     </script>
 """, unsafe_allow_html=True)
 
-df_data_ = pd.read_csv('result_forecast_next5month_retrain_v2.csv')
+df_data_ = pd.read_csv('result_forecast_next5month_retrain_v3.csv')
 df_data = df_data_[(df_data_.year==year) & (df_data_.month==month) * (df_data_.region==regional)]
 
 if button and (len(df_data) != 0):
@@ -121,12 +121,12 @@ if button and (len(df_data) != 0):
     - **Current Price:** Rp{float(df_data['current_asp'])}  
     - **Current Sales Volume:** {int(df_data['sales_volume'])}  
     - **Predicted Sales Volume:** {int(round(df_data['predicted_sales_volume'],0))}  
-    - **Recommended New Price:** **{float(df_data['predicted_asp'])}** _({float(round(df_data['price_increase_pct'],2))}%)_
+    - **Recommended New Price:** **Rp{float(df_data['predicted_asp'])}** _({float(round(df_data['price_increase_pct'],2))}%)_
     """)
 
     st.markdown("### 🟨 Expected Outcomes")
     st.markdown(f"""
-    - **Revenue Change:** **Rp+{float(round(df_data['revenue_increase'],2))}** _({float(round(df_data['revenue_increase_pct'],2))}%)_  
+    - **Revenue Change:** **Rp+{float(round(df_data['corrected_revenue_increase'],2))}** _({float(round(df_data['corrected_revenue_increase_pct'],2))}%)_  
     - **Sales Volume Impact:** **{int(round(df_data['sales_volume_impact'],2))} units** _({float(round(df_data['sales_volume_impact_pct'],2))}%)_  
     - **Market Position:** Maintains 3% price advantage vs competitors
     """)
@@ -134,9 +134,9 @@ if button and (len(df_data) != 0):
     st.markdown("### 🟩 Analysis Details")
     st.markdown(f"""
     - **Price Elasticity:** {float(df_data['price_elasticity'])}  
-    - **Optimal Price Range:** {str(df_data['price_elasticity'].iloc[0]) if type(df_data['price_elasticity']) == str else str(df_data['price_elasticity'])}  
+    - **Optimal Price Range:** {str(df_data['optimal_range'].iloc[0]) if type(df_data['optimal_range']) != str else str(df_data['optimal_range'])}  
     - **Best Implementation Timing:** Next month  
-    - **Recommended Action:**  **{str(df_data['recommended_action'].iloc[0]) if type(df_data['recommended_action']) != str else str(df_data['recommended_action'])}**
+    - **Recommended Action:**  **{str(df_data['corrected_action'].iloc[0]) if type(df_data['corrected_action']) != str else str(df_data['corrected_action'])}**
     """)
 
     em = EmailMessage()
@@ -161,7 +161,7 @@ if button and (len(df_data) != 0):
      <tr style="background-color: #fff8e1;">
          <td>
          <strong>Expected Outcomes:</strong><br><br>
-        <strong>Revenue Change:</strong> Rp{float(round(df_data['revenue_increase'],2))} ({float(round(df_data['revenue_increase_pct'],2))}% increase)  <br>
+        <strong>Revenue Change:</strong> Rp{float(round(df_data['corrected_revenue_increase'],2))} ({float(round(df_data['corrected_revenue_increase_pct'],2))}% increase)  <br>
          <strong>Sales Volume Impact:</strong> {int(round(df_data['sales_volume_impact'],2))} units ({float(round(df_data['sales_volume_impact_pct'],2))}% impact)  <br>
          <strong>Market Position:</strong> Maintains 3% price advantage vs competitors
          </td>
@@ -174,7 +174,7 @@ if button and (len(df_data) != 0):
         <strong>Price Elasticity:</strong> {float(df_data['price_elasticity'])}  <br>
          <strong>Optimal Price Range:</strong> 🔸 {str(df_data['optimal_range'].iloc[0]) if type(df_data['optimal_range']) != str else str(df_data['optimal_range'])} (±1.5% of predicted_asp)<br>
          <strong>Best Implementation Timing:</strong> 🔸 Next month<br>
-        <strong>Recommended Action:</strong> {str(df_data['recommended_action'].iloc[0]) if type(df_data['recommended_action']) != str else str(df_data['recommended_action'])}  
+        <strong>Recommended Action:</strong> {str(df_data['corrected_action'].iloc[0]) if type(df_data['corrected_action']) != str else str(df_data['corrected_action'])}  
          </td>
      </tr>
  
