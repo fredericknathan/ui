@@ -143,11 +143,49 @@ if button and (len(df_data) != 0):
     em['From'] = SENDER
     em['To'] = RECEIVER
     em['Subject'] = f'Revised Pricing Approval Request - {regional} - Month {month}'
-    if type(df_data.email_notification) == str:
-        mail_content = df_data.email_notification
-    else:
-        mail_content = str(df_data.email_notification.iloc[0])
-    em.set_content(mail_content)
+    html = f"""
+        <table width="100%" cellpadding="10" cellspacing="0" style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border-collapse: collapse;">
+     <!-- Header -->
+     <tr style="background-color: #e6f0fa;">
+        <td>
+        <strong>Updated Recommendation for Product F Pricing:</strong><br><br>
+        <strong>Region:</strong> {regional} <br>
+        <strong>Current Price:</strong> Rp{float(df_data['current_asp'])}  <br>
+        <strong>Current Sales Volume:</strong> {int(df_data['sales_volume'])}  <br>
+        <strong>Predicted Sales Volume:</strong> {int(round(df_data['predicted_sales_volume'],0))}  <br>
+        <strong>Recommended New Price:</strong> Rp{float(df_data['predicted_asp'])} ({float(round(df_data['price_increase_pct'],2))}% increase)
+        </td>
+     </tr>
+ 
+     <!-- Expected Outcomes -->
+     <tr style="background-color: #fff8e1;">
+         <td>
+         <strong>Expected Outcomes:</strong><br><br>
+        <strong>Revenue Change:</strong> Rp{float(round(df_data['revenue_increase'],2))} ({float(round(df_data['revenue_increase_pct'],2))}% increase)  <br>
+         <strong>Sales Volume Impact:</strong> {int(round(df_data['sales_volume_impact'],2))} units ({float(round(df_data['sales_volume_impact_pct'],2))}% impact)  <br>
+         <strong>Market Position:</strong> Maintains 3% price advantage vs competitors
+         </td>
+     </tr>
+ 
+     <!-- Analysis Details -->
+     <tr style="background-color: #e8f5e9;">
+         <td>
+         <strong>Analysis Details:</strong><br><br>
+        <strong>Price Elasticity:</strong> {float(df_data['price_elasticity'])}  <br>
+         <strong>Optimal Price Range:</strong> 🔸 RpX–RpY (±1.5% of predicted_asp)<br>
+         <strong>Best Implementation Timing:</strong> 🔸 Next month<br>
+        <strong>Recommended Action:</strong> APPROVE 5% PRICE DECREASE  
+         </td>
+     </tr>
+ 
+     </table>
+     """
+    em.add_alternative(html, subtype="html")
+    # if type(df_data.email_notification) == str:
+    #     mail_content = df_data.email_notification
+    # else:
+    #     mail_content = str(df_data.email_notification.iloc[0])
+    # em.set_content(mail_content)
 
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
