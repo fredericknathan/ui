@@ -153,7 +153,7 @@ if button and (len(df_data) != 0):
         <strong>Current Price:</strong> Rp{float(df_data['current_asp'])}  <br>
         <strong>Current Sales Volume:</strong> {int(df_data['sales_volume'])}  <br>
         <strong>Predicted Sales Volume:</strong> {int(round(df_data['predicted_sales_volume'],0))}  <br>
-        <strong>Recommended New Price:</strong> Rp{float(df_data['corrected_predicted_asp'])} ({float(round(df_data['corrected_price_increase_pct'],2))}% increase)
+        <strong>Recommended New Price:</strong> Rp{float(df_data['corrected_predicted_asp'])} ({float(round(df_data['corrected_price_increase_pct'],2))}%)
         </td>
      </tr>
  
@@ -161,7 +161,7 @@ if button and (len(df_data) != 0):
      <tr style="background-color: #fff8e1;">
          <td>
          <strong>Expected Outcomes:</strong><br><br>
-        <strong>Revenue Change:</strong> Rp{float(round(df_data['corrected_revenue_increase'],2))} ({float(round(df_data['corrected_revenue_increase_pct'],2))}% increase)  <br>
+        <strong>Revenue Change:</strong> Rp{float(round(df_data['corrected_revenue_increase'],2))} ({float(round(df_data['corrected_revenue_increase_pct'],2))}%)  <br>
          <strong>Sales Volume Impact:</strong> {int(round(df_data['sales_volume_impact'],2))} units ({float(round(df_data['sales_volume_impact_pct'],2))}% impact)  <br>
          <strong>Market Position:</strong> Maintains 3% price advantage vs competitors
          </td>
