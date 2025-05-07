@@ -143,7 +143,10 @@ if button and (len(df_data) != 0):
     em['From'] = SENDER
     em['To'] = RECEIVER
     em['Subject'] = f'Revised Pricing Approval Request - {regional} - Month {month}'
-    mail_content = str(df_data.email_notification.iloc[0])
+    if type(df_data.email_notification) == str:
+        mail_content = df_data.email_notification
+    else:
+        mail_content = str(df_data.email_notification.iloc[0])
     em.set_content(mail_content)
 
     context = ssl.create_default_context()
