@@ -27,8 +27,8 @@ def generate_data(model, data):
   for _, row in df_u.iterrows():
        data_dict['Date'].append(row['bill_date'])
        data_dict['Date'].append(row['bill_date'])
-       data_dict['Type'].append('Current Sales Volume')
-       data_dict['Type'].append('Predicted Sales Volume')
+       data_dict['Type'].append('Current')
+       data_dict['Type'].append('Predicted')
        data_dict['Vol'].append(row['sales_volume'])
        y_pred = model.predict([[row.year, row.month, row.kompetitor, row.asp, row.rbp, row.quarter, row.plc_weight, row.plc_adj_asp, row.regional_ship_to_Bali, row.regional_ship_to_Bengkulu, row.regional_ship_to_Lampung, row.plc_phase_Introduction, row.plc_phase_Growth, row.plc_phase_Maturity, row.plc_adj_sales_lag_1, row.plc_adj_sales_lag_3, row.plc_adj_sales_lag_6, row.plc_adj_sales_lag_12, row.plc_sales_ma_3, row.plc_sales_ma_6, row.price_ratio, row.discount_depth]])[0]
        data_dict['Vol'].append(y_pred)
