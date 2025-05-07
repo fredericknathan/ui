@@ -136,7 +136,7 @@ if button and (len(df_data) != 0):
     - **Price Elasticity:** {float(df_data['price_elasticity'])}  
     - **Optimal Price Range:** {str(df_data['price_elasticity'].iloc[0]) if type(df_data['price_elasticity']) == str else str(df_data['price_elasticity'])}  
     - **Best Implementation Timing:** Next month  
-    - **Recommended Action:**  **APPROVE 5% PRICE DECREASE**
+    - **Recommended Action:**  **{str(df_data['recommended_action'].iloc[0]) if type(df_data['recommended_action']) != str else str(df_data['recommended_action'])}**
     """)
 
     em = EmailMessage()
@@ -174,7 +174,7 @@ if button and (len(df_data) != 0):
         <strong>Price Elasticity:</strong> {float(df_data['price_elasticity'])}  <br>
          <strong>Optimal Price Range:</strong> 🔸 {str(df_data['optimal_range'].iloc[0]) if type(df_data['optimal_range']) != str else str(df_data['optimal_range'])} (±1.5% of predicted_asp)<br>
          <strong>Best Implementation Timing:</strong> 🔸 Next month<br>
-        <strong>Recommended Action:</strong> APPROVE 5% PRICE DECREASE  
+        <strong>Recommended Action:</strong> {str(df_data['recommended_action'].iloc[0]) if type(df_data['recommended_action']) != str else str(df_data['recommended_action'])}  
          </td>
      </tr>
  
