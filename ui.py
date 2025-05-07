@@ -109,6 +109,7 @@ df_data_ = pd.read_csv('result_forecast_next5month_retrain.csv')
 df_data = df_data_[(df_data_.year==year) & (df_data_.month==month) * (df_data_.region==regional)]
 
 if button and (len(df_data) != 0):
+    st.warning("📧 Result sent to e-mail!")
     if len(df_data) > 1:
         df_data = df_data.iloc[0]
     st.markdown("## 📊 Product F Pricing Recommendation")
