@@ -134,7 +134,7 @@ if button and (len(df_data) != 0):
     st.markdown("### 🟩 Analysis Details")
     st.markdown(f"""
     - **Price Elasticity:** {float(df_data['price_elasticity'])}  
-    - **Optimal Price Range:** {str(df_data['price_elasticity'].iloc[0])}  
+    - **Optimal Price Range:** {str(df_data['price_elasticity'].iloc[0]) if type(df_data['price_elasticity']) == str else str(df_data['price_elasticity'])}  
     - **Best Implementation Timing:** Next month  
     - **Recommended Action:**  **APPROVE 5% PRICE DECREASE**
     """)
