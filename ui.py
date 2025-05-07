@@ -134,7 +134,7 @@ if button and (len(df_data) != 0):
     st.markdown("### 🟩 Analysis Details")
     st.markdown(f"""
     - **Price Elasticity:** {float(df_data['price_elasticity'])}  
-    - **Optimal Price Range:** Rp132.669–Rp136.710  
+    - **Optimal Price Range:** {str(df_data['price_elasticity'].iloc[0])}  
     - **Best Implementation Timing:** Next month  
     - **Recommended Action:**  **APPROVE 5% PRICE DECREASE**
     """)
@@ -172,7 +172,7 @@ if button and (len(df_data) != 0):
          <td>
          <strong>Analysis Details:</strong><br><br>
         <strong>Price Elasticity:</strong> {float(df_data['price_elasticity'])}  <br>
-         <strong>Optimal Price Range:</strong> 🔸 {str(df_data['optimal_range'])} (±1.5% of predicted_asp)<br>
+         <strong>Optimal Price Range:</strong> 🔸 {str(df_data['optimal_range'].iloc[0])} (±1.5% of predicted_asp)<br>
          <strong>Best Implementation Timing:</strong> 🔸 Next month<br>
         <strong>Recommended Action:</strong> APPROVE 5% PRICE DECREASE  
          </td>
