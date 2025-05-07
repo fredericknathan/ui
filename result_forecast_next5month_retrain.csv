@@ -1,0 +1,307 @@
+Unnamed: 0,year,month,region,sales_volume,current_asp,predicted_asp,current_revenue,predicted_revenue,price_increase_pct,price_change_value,revenue_increase,revenue_increase_pct,price_elasticity,recommended_action,email_notification,sales_volume_impact,sales_volume_impact_pct,predicted_sales_volume,date
+0,2025,2,Bali,2816,128276.0,134690.0,328387741.8347574,414634506.7563513,5.0,6414.0,86246764.9215939,26.263698041747467,-2.06,APPROVE 5% PRICE INCREASE,"Updated Recommendation for Product F Pricing:
+Region: Bali
+Current Price: Rp128.276
+Current Sales Volume: 2816
+Recommended New Price: Rp134.690 (+5.0%)
+Predicted Sales Volume: 3078
+
+Expected Outcomes:
+- Revenue Change: Rp+86.246.764 (+26.3%)
+- Sales Volume Impact: +262 units (+9.32%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -2.06
+- Optimal Price Range: Rp132.669–Rp136.710
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE INCREASE",262.4357172496198,9.319450186421157,3078.4357172496198,2025-02-01
+1,2025,2,Lampung,10137,125749.0,132036.0,1158900870.9338517,1444350911.7665348,5.0,6287.0,285450040.8326831,24.631100725868393,-0.62,APPROVE 5% PRICE INCREASE,"Updated Recommendation for Product F Pricing:
+Region: Lampung
+Current Price: Rp125.749
+Current Sales Volume: 10137
+Recommended New Price: Rp132.036 (+5.0%)
+Predicted Sales Volume: 10939
+
+Expected Outcomes:
+- Revenue Change: Rp+285.450.040 (+24.6%)
+- Sales Volume Impact: +802 units (+7.91%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -0.62
+- Optimal Price Range: Rp130.055–Rp134.016
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE INCREASE",802.068979418755,7.912291401980419,10939.068979418755,2025-02-01
+2,2025,2,Bengkulu,3379,133083.0,139737.0,408829559.1534525,524669828.22824454,5.0,6654.0,115840269.07479203,28.33461193820182,-1.17,APPROVE 5% PRICE INCREASE,"Updated Recommendation for Product F Pricing:
+Region: Bengkulu
+Current Price: Rp133.083
+Current Sales Volume: 3379
+Recommended New Price: Rp139.737 (+5.0%)
+Predicted Sales Volume: 3754
+
+Expected Outcomes:
+- Revenue Change: Rp+115.840.269 (+28.3%)
+- Sales Volume Impact: +376 units (+11.12%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -1.17
+- Optimal Price Range: Rp137.640–Rp141.833
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE INCREASE",375.695093126692,11.118528947223794,3754.695093126692,2025-02-01
+3,2025,3,Bali,10137,128276.0,134690.0,1182195870.6051266,1452665986.0560734,5.0,6414.0,270470115.4509468,22.878621231564797,-1.5,APPROVE 5% PRICE INCREASE,"Updated Recommendation for Product F Pricing:
+Region: Bali
+Current Price: Rp128.276
+Current Sales Volume: 10137
+Recommended New Price: Rp134.690 (+5.0%)
+Predicted Sales Volume: 10785
+
+Expected Outcomes:
+- Revenue Change: Rp+270.470.115 (+22.9%)
+- Sales Volume Impact: +648 units (+6.39%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -1.50
+- Optimal Price Range: Rp132.669–Rp136.710
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE INCREASE",648.2549265429749,6.394938606520419,10785.254926542975,2025-03-01
+4,2025,3,Lampung,7040,125749.0,132036.0,804792271.4818414,1003165934.0130533,5.0,6287.0,198373662.53121185,24.64905163241093,-2.61,APPROVE 5% PRICE INCREASE,"Updated Recommendation for Product F Pricing:
+Region: Lampung
+Current Price: Rp125.749
+Current Sales Volume: 7040
+Recommended New Price: Rp132.036 (+5.0%)
+Predicted Sales Volume: 7597
+
+Expected Outcomes:
+- Revenue Change: Rp+198.373.662 (+24.6%)
+- Sales Volume Impact: +558 units (+7.92%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -2.61
+- Optimal Price Range: Rp130.055–Rp134.016
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE INCREASE",557.6698325687935,7.921446485352181,7597.669832568794,2025-03-01
+5,2025,3,Bengkulu,6758,133083.0,139737.0,817659118.306905,1026156889.5489403,5.0,6654.0,208497771.24203527,25.499351327942566,-2.61,APPROVE 5% PRICE INCREASE,"Updated Recommendation for Product F Pricing:
+Region: Bengkulu
+Current Price: Rp133.083
+Current Sales Volume: 6758
+Recommended New Price: Rp139.737 (+5.0%)
+Predicted Sales Volume: 7343
+
+Expected Outcomes:
+- Revenue Change: Rp+208.497.771 (+25.5%)
+- Sales Volume Impact: +585 units (+8.66%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -2.61
+- Optimal Price Range: Rp137.640–Rp141.833
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE INCREASE",585.4873336978769,8.663618432936918,7343.487333697877,2025-03-01
+6,2025,4,Bali,4928,128276.0,134690.0,574678548.2108254,568044785.2330623,5.0,6414.0,-6633762.977763176,-1.154343240828528,-2.85,APPROVE 5% PRICE DECREASE,"Updated Recommendation for Product F Pricing:
+Region: Bali
+Current Price: Rp128.276
+Current Sales Volume: 4928
+Recommended New Price: Rp134.690 (+5.0%)
+Predicted Sales Volume: 4217
+
+Expected Outcomes:
+- Revenue Change: Rp-6.633.762 (-1.2%)
+- Sales Volume Impact: -711 units (-14.42%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -2.85
+- Optimal Price Range: Rp132.669–Rp136.710
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE DECREASE",-710.5763959235113,-14.419163878318006,4217.423604076489,2025-04-01
+7,2025,4,Lampung,3379,125749.0,132036.0,386300290.3112839,417871615.3078779,5.0,6287.0,31571324.99659401,8.17274172151245,-0.83,APPROVE 5% PRICE DECREASE,"Updated Recommendation for Product F Pricing:
+Region: Lampung
+Current Price: Rp125.749
+Current Sales Volume: 3379
+Recommended New Price: Rp132.036 (+5.0%)
+Predicted Sales Volume: 3164
+
+Expected Outcomes:
+- Revenue Change: Rp+31.571.324 (+8.2%)
+- Sales Volume Impact: -214 units (-6.34%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -0.83
+- Optimal Price Range: Rp130.055–Rp134.016
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE DECREASE",-214.1690803426494,-6.338238542250648,3164.8309196573505,2025-04-01
+8,2025,4,Bengkulu,3520,133083.0,139737.0,425864124.1181797,447660402.9553782,5.0,6654.0,21796278.837198496,5.118129845365868,-1.5,APPROVE 5% PRICE DECREASE,"Updated Recommendation for Product F Pricing:
+Region: Bengkulu
+Current Price: Rp133.083
+Current Sales Volume: 3520
+Recommended New Price: Rp139.737 (+5.0%)
+Predicted Sales Volume: 3203
+
+Expected Outcomes:
+- Revenue Change: Rp+21.796.278 (+5.1%)
+- Sales Volume Impact: -316 units (-8.99%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -1.50
+- Optimal Price Range: Rp137.640–Rp141.833
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE DECREASE",-316.4075158663905,-8.988849882567912,3203.5924841336096,2025-04-01
+9,2025,5,Bali,3379,128276.0,134690.0,394065290.2017089,419075506.3505817,5.0,6414.0,25010216.148872793,6.346718873938604,-1.23,APPROVE 5% PRICE DECREASE,"Updated Recommendation for Product F Pricing:
+Region: Bali
+Current Price: Rp128.276
+Current Sales Volume: 3379
+Recommended New Price: Rp134.690 (+5.0%)
+Predicted Sales Volume: 3111
+
+Expected Outcomes:
+- Revenue Change: Rp+25.010.216 (+6.3%)
+- Sales Volume Impact: -268 units (-7.92%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -1.23
+- Optimal Price Range: Rp132.669–Rp136.710
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE DECREASE",-267.59227596271626,-7.919274222039546,3111.4077240372835,2025-05-01
+10,2025,5,Lampung,3379,125749.0,132036.0,386300290.3112839,380145573.8801992,5.0,6287.0,-6154716.4310846925,-1.5932466491612451,-2.95,APPROVE 5% PRICE DECREASE,"Updated Recommendation for Product F Pricing:
+Region: Lampung
+Current Price: Rp125.749
+Current Sales Volume: 3379
+Recommended New Price: Rp132.036 (+5.0%)
+Predicted Sales Volume: 2879
+
+Expected Outcomes:
+- Revenue Change: Rp-6.154.716 (-1.6%)
+- Sales Volume Impact: -500 units (-14.79%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -2.95
+- Optimal Price Range: Rp130.055–Rp134.016
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE DECREASE",-499.8944993774484,-14.794155057041976,2879.1055006225515,2025-05-01
+11,2025,5,Bengkulu,7040,133083.0,139737.0,851728248.2363595,931600942.2801386,5.0,6654.0,79872694.04377913,9.377720441839097,-0.58,APPROVE 5% PRICE DECREASE,"Updated Recommendation for Product F Pricing:
+Region: Bengkulu
+Current Price: Rp133.083
+Current Sales Volume: 7040
+Recommended New Price: Rp139.737 (+5.0%)
+Predicted Sales Volume: 6666
+
+Expected Outcomes:
+- Revenue Change: Rp+79.872.694 (+9.4%)
+- Sales Volume Impact: -373 units (-5.30%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -0.58
+- Optimal Price Range: Rp137.640–Rp141.833
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE DECREASE",-373.18346407795605,-5.300901478380057,6666.816535922044,2025-05-01
+12,2025,6,Bali,11193,128276.0,134690.0,1305341273.793161,1674556989.3836455,5.0,6414.0,369215715.5904846,28.284995119903723,-0.92,APPROVE 5% PRICE INCREASE,"Updated Recommendation for Product F Pricing:
+Region: Bali
+Current Price: Rp128.276
+Current Sales Volume: 11193
+Recommended New Price: Rp134.690 (+5.0%)
+Predicted Sales Volume: 12432
+
+Expected Outcomes:
+- Revenue Change: Rp+369.215.715 (+28.3%)
+- Sales Volume Impact: +1240 units (+11.08%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -0.92
+- Optimal Price Range: Rp132.669–Rp136.710
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE INCREASE",1239.67495273328,11.075448519014383,12432.67495273328,2025-06-01
+13,2025,6,Lampung,3379,125749.0,132036.0,386300290.3112839,476065053.9076497,5.0,6287.0,89764763.59636581,23.237042748280786,-2.47,APPROVE 5% PRICE INCREASE,"Updated Recommendation for Product F Pricing:
+Region: Lampung
+Current Price: Rp125.749
+Current Sales Volume: 3379
+Recommended New Price: Rp132.036 (+5.0%)
+Predicted Sales Volume: 3605
+
+Expected Outcomes:
+- Revenue Change: Rp+89.764.763 (+23.2%)
+- Sales Volume Impact: +227 units (+6.71%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -2.47
+- Optimal Price Range: Rp130.055–Rp134.016
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE INCREASE",226.5701013939358,6.705241236872915,3605.5701013939356,2025-06-01
+14,2025,6,Bengkulu,1232,133083.0,139737.0,149052443.44136292,181883685.3001148,5.0,6654.0,32831241.858751893,22.02663780662386,-2.55,APPROVE 5% PRICE INCREASE,"Updated Recommendation for Product F Pricing:
+Region: Bengkulu
+Current Price: Rp133.083
+Current Sales Volume: 1232
+Recommended New Price: Rp139.737 (+5.0%)
+Predicted Sales Volume: 1301
+
+Expected Outcomes:
+- Revenue Change: Rp+32.831.241 (+22.0%)
+- Sales Volume Impact: +70 units (+5.65%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -2.55
+- Optimal Price Range: Rp137.640–Rp141.833
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE INCREASE",69.61435625578643,5.650515929852795,1301.6143562557863,2025-06-01
+0,2025,2,Bali,2816,128276.0,121862.2,328387741.8347574,392884484.35959303,-5.0,-6413.800000000003,64496742.524835646,19.64042328878707,-2.32,APPROVE 5% PRICE INCREASE,"Updated Recommendation for Product F Pricing:
+Region: Bali
+Current Price: Rp128.276
+Current Sales Volume: 2816
+Recommended New Price: Rp121.862 (-5.0%)
+Predicted Sales Volume: 3224
+
+Expected Outcomes:
+- Revenue Change: Rp+64.496.742 (+19.6%)
+- Sales Volume Impact: +408 units (+14.49%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -2.32
+- Optimal Price Range: Rp120.034–Rp123.690
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE INCREASE",408.00616729053866,14.488855372533333,3224.0061672905385,2025-02-01
+1,2025,2,Lampung,10137,125749.0,119461.54999999999,1158900870.9338517,1388467094.1900282,-5.0,-6287.450000000012,229566223.25617647,19.80896114705567,-2.2,APPROVE 5% PRICE INCREASE,"Updated Recommendation for Product F Pricing:
+Region: Lampung
+Current Price: Rp125.749
+Current Sales Volume: 10137
+Recommended New Price: Rp119.461 (-5.0%)
+Predicted Sales Volume: 11622
+
+Expected Outcomes:
+- Revenue Change: Rp+229.566.223 (+19.8%)
+- Sales Volume Impact: +1486 units (+14.66%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -2.20
+- Optimal Price Range: Rp117.669–Rp121.253
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE INCREASE",1485.7111919276806,14.656320330745594,11622.711191927681,2025-02-01
+2,2025,2,Bengkulu,3379,133083.0,126428.84999999999,408829559.1534525,483098222.3909033,-5.0,-6654.150000000009,74268663.23745078,18.16616767907781,-1.98,APPROVE 5% PRICE INCREASE,"Updated Recommendation for Product F Pricing:
+Region: Bengkulu
+Current Price: Rp133.083
+Current Sales Volume: 3379
+Recommended New Price: Rp126.428 (-5.0%)
+Predicted Sales Volume: 3821
+
+Expected Outcomes:
+- Revenue Change: Rp+74.268.663 (+18.2%)
+- Sales Volume Impact: +442 units (+13.08%)
+- Market Position: Maintains 3% price advantage vs competitors
+
+Analysis Details:
+- Price Elasticity: -1.98
+- Optimal Price Range: Rp124.532–Rp128.325
+- Best Implementation Timing: Next month
+Recommended Action: APPROVE 5% PRICE INCREASE",442.10746392855214,13.08397348116461,3821.107463928552,2025-02-01
