@@ -151,7 +151,7 @@ if button and (len(df_data) != 0):
         <strong>Current Price:</strong> ✅ Rp{float(df_data['current_asp'])}<br>
         <strong>Current Sales Volume:</strong> ✅ {int(df_data['sales_volume'])}<br>
         <strong>Predicted Sales Volume:</strong> ✅ {int(round(df_data['predicted_sales_volume'],0))}<br>
-        <strong>Recommended New Price:</strong> ✅ Rp{float(df_data['predicted_asp'])} ({float(round(df_data['price_increase_pct']),2)}% increase)
+        <strong>Recommended New Price:</strong> ✅ Rp{float(df_data['predicted_asp'])} ({float(round(df_data['price_increase_pct'],2))}% increase)
         </td>
     </tr>
 
