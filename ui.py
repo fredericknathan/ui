@@ -135,7 +135,7 @@ if button and (len(df_data) != 0):
     - **Price Elasticity:** {float(df_data['price_elasticity'])}  
     - **Optimal Price Range:** Rp132.669–Rp136.710  
     - **Best Implementation Timing:** Next month  
-    - **Recommended Action:** ✅ **APPROVE 5% PRICE DECREASE**
+    - **Recommended Action:**  **APPROVE 5% PRICE DECREASE**
     """)
 
     em = EmailMessage()
@@ -148,11 +148,11 @@ if button and (len(df_data) != 0):
     <tr style="background-color: #e6f0fa;">
         <td>
         <strong>Updated Recommendation for Product F Pricing:</strong><br><br>
-        <strong>Region:</strong> {regional} ✅<br>
-        <strong>Current Price:</strong> Rp{float(df_data['current_asp'])} ✅ <br>
-        <strong>Current Sales Volume:</strong> {int(df_data['sales_volume'])} ✅ <br>
-        <strong>Predicted Sales Volume:</strong> {int(round(df_data['predicted_sales_volume'],0))} ✅ <br>
-        <strong>Recommended New Price:</strong> Rp{float(df_data['predicted_asp'])} ({float(round(df_data['price_increase_pct'],2))}% increase) ✅ 
+        <strong>Region:</strong> {regional} <br>
+        <strong>Current Price:</strong> Rp{float(df_data['current_asp'])}  <br>
+        <strong>Current Sales Volume:</strong> {int(df_data['sales_volume'])}  <br>
+        <strong>Predicted Sales Volume:</strong> {int(round(df_data['predicted_sales_volume'],0))}  <br>
+        <strong>Recommended New Price:</strong> Rp{float(df_data['predicted_asp'])} ({float(round(df_data['price_increase_pct'],2))}% increase)  
         </td>
     </tr>
 
@@ -160,8 +160,8 @@ if button and (len(df_data) != 0):
     <tr style="background-color: #fff8e1;">
         <td>
         <strong>Expected Outcomes:</strong><br><br>
-        <strong>Revenue Change:</strong> Rp{float(round(df_data['revenue_increase'],2))} ({float(round(df_data['revenue_increase_pct'],2))}% increase) ✅ <br>
-        <strong>Sales Volume Impact:</strong> {int(round(df_data['sales_volume_impact'],2))} units ({float(round(df_data['sales_volume_impact_pct'],2))}% impact) ✅ <br>
+        <strong>Revenue Change:</strong> Rp{float(round(df_data['revenue_increase'],2))} ({float(round(df_data['revenue_increase_pct'],2))}% increase)  <br>
+        <strong>Sales Volume Impact:</strong> {int(round(df_data['sales_volume_impact'],2))} units ({float(round(df_data['sales_volume_impact_pct'],2))}% impact)  <br>
         <strong>Market Position:</strong> Maintains 3% price advantage vs competitors
         </td>
     </tr>
@@ -170,10 +170,10 @@ if button and (len(df_data) != 0):
     <tr style="background-color: #e8f5e9;">
         <td>
         <strong>Analysis Details:</strong><br><br>
-        <strong>Price Elasticity:</strong> {float(df_data['price_elasticity'])} ✅ <br>
+        <strong>Price Elasticity:</strong> {float(df_data['price_elasticity'])}  <br>
         <strong>Optimal Price Range:</strong> 🔸 RpX–RpY (±1.5% of predicted_asp)<br>
         <strong>Best Implementation Timing:</strong> 🔸 Next month<br>
-        <strong>Recommended Action:</strong> APPROVE 5% PRICE DECREASE ✅ 
+        <strong>Recommended Action:</strong> APPROVE 5% PRICE DECREASE  
         </td>
     </tr>
 
