@@ -142,7 +142,7 @@ if button and (len(df_data) != 0):
     em = EmailMessage()
     em['From'] = SENDER
     em['To'] = RECEIVER
-    em['Subject'] = f'Revised Pricing Approval Request - {regional} - {month}'
+    em['Subject'] = f'Revised Pricing Approval Request - {regional} - Month {month}'
     mail_content = str(df_data.email_notification.iloc[0])
     em.set_content(mail_content)
 
