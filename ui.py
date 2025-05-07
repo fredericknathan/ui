@@ -172,7 +172,7 @@ if button and (len(df_data) != 0):
          <td>
          <strong>Analysis Details:</strong><br><br>
         <strong>Price Elasticity:</strong> {float(df_data['price_elasticity'])}  <br>
-         <strong>Optimal Price Range:</strong> 🔸 RpX–RpY (±1.5% of predicted_asp)<br>
+         <strong>Optimal Price Range:</strong> 🔸 {str(df_data['optimal_range'])} (±1.5% of predicted_asp)<br>
          <strong>Best Implementation Timing:</strong> 🔸 Next month<br>
         <strong>Recommended Action:</strong> APPROVE 5% PRICE DECREASE  
          </td>
